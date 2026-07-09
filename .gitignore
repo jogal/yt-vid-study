@@ -1,0 +1,9 @@
+# 生成物（取得した字幕・ノート）はコミットしない
+notes/*
+!notes/.gitkeep
+
+# Python
+__pycache__/
+*.pyc
+.venv/
+venv/
