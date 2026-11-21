@@ -51,3 +51,10 @@ pip install -r requirements.txt
 2. `yt-dlp` でタイトル・チャンネル・長さ・チャプター等を取得
 3. `youtube-transcript-api` で字幕を取得（手動→自動生成→翻訳の順にフォールバック）
 4. タイムスタンプ付き字幕を Claude が読み、要約ノートに再構成
+
+---
+
+## Neuro Notes（脳神経内科 診療ノート）
+
+[`neuro-notes/`](neuro-notes/) に、診療時に参照するノートサイト（オフライン対応 PWA）を置いています。
+書き方・公開方法は [neuro-notes/README.md](neuro-notes/README.md) を参照。

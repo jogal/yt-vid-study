@@ -1,0 +1,9 @@
+# サイト設定
+site_name: Neuro Notes
+short_name: NeuroNotes
+subtitle: 脳神経内科 診療ノート
+
+# ノート下部の「編集」リンク（GitHub のWeb編集画面）。<path> は notes/ からの相対パスに置き換わる
+edit_base: https://github.com/jogal/yt-vid-study/edit/claude/brave-feynman-qcevga/neuro-notes/notes/
+# 「新規ノート」リンク
+new_base: https://github.com/jogal/yt-vid-study/new/claude/brave-feynman-qcevga/neuro-notes/notes/

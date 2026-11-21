@@ -1,0 +1,55 @@
+<!--HEAD_START--><!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<!--HEAD_END-->
+<title>{{TITLE}}</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<meta name="robots" content="noindex,nofollow">
+<!--PWA_START-->
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<link rel="icon" href="icon-192.png">
+<meta name="theme-color" content="#1b5d75">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="apple-mobile-web-app-title" content="{{TITLE}}">
+<script>window.NN_PWA = true;</script>
+<!--PWA_END-->
+<style>/*{{CSS}}*/</style>
+<!--BODY_OPEN--></head>
+<body><!--/BODY_OPEN-->
+<header class="top" id="top">
+  <div class="top-row">
+    <button class="icon-btn only-mobile" id="menuBtn" aria-label="目次を開く">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+    </button>
+    <a class="brand" href="#" id="brand"><span class="brand-mark">N</span><span id="siteName">Neuro Notes</span><small id="siteSub"></small></a>
+    <div class="search only-desktop" id="searchDesk"></div>
+    <span class="spacer only-mobile"></span>
+    <span class="net" id="net" hidden>オフライン</span>
+    <button class="icon-btn" id="fontBtn" aria-label="文字サイズを変える" title="文字サイズ">Aa</button>
+    <button class="icon-btn" id="themeBtn" aria-label="表示テーマを切り替える" title="テーマ">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="8"/><path d="M12 4a8 8 0 0 0 0 16z" fill="currentColor"/></svg>
+    </button>
+  </div>
+  <div class="top-row r2 only-mobile" id="searchMob"></div>
+</header>
+<div class="search" id="searchBox" hidden>
+  <svg class="s-ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
+  <input id="q" type="search" placeholder="ノートを検索（例: GBS、rt-PA、意識障害）" autocomplete="off" enterkeyhint="search" aria-label="ノートを検索">
+  <kbd id="kbd">/</kbd>
+  <button class="icon-btn s-clear" id="qClear" aria-label="検索をクリア" hidden>✕</button>
+</div>
+<div class="layout">
+  <nav class="side" id="side" aria-label="ノート一覧"></nav>
+  <div class="scrim" id="scrim"></div>
+  <main class="main" id="main"><div class="wrap" id="view"></div></main>
+</div>
+<div class="toast" id="toast" role="status" hidden></div>
+<script id="nn-data" type="application/json">{{DATA}}</script>
+<script>window.NN_VERSION = "{{VERSION}}";</script>
+<script>/*{{JS}}*/</script>
+<!--DOC_END-->
