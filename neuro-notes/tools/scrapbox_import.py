@@ -3,6 +3,7 @@
 
 使い方:
   1. Scrapbox のプロジェクト設定 → Page Data → Export Pages で JSON をダウンロード
+     （ページ画面の「AI用コンテキスト」書き出し .txt も読める）
   2. python3 tools/scrapbox_import.py export.json
      （既定では notes/80_Scrapbox取込/ に書き出す。既存ファイルは上書きしない）
 
@@ -44,7 +45,7 @@ def line_text(x) -> str:
 
 
 def indent_of(s: str) -> tuple[int, str]:
-    m = re.match(r"^[ \t　]*", s)
+    m = re.match(r"^[ \t]*", s)  # Scrapbox の字下げは半角スペース/タブのみ
     return len(m.group(0)), s[m.end():]
 
 
@@ -192,6 +193,27 @@ def safe_name(title: str) -> str:
     return (s or "untitled")[:80]
 
 
+PAGE_RE = re.compile(r'^<Page title="(.*?)"([^>]*)>\n(.*?)</Page>', re.S | re.M)
+
+
+def parse_smart_context(text: str) -> list[dict]:
+    """Cosense の「smart-context」書き出し（.txt）をページ一覧に変換する"""
+    pages = []
+    for m in PAGE_RE.finditer(text):
+        title = html_unescape(m.group(1))
+        um = re.search(r'updated="([^"]*)"', m.group(2))
+        upd = um.group(1) if um else None
+        ts = int(datetime.fromisoformat(upd.replace("Z", "+00:00")).timestamp()) if upd else None
+        lines = m.group(3).rstrip("\n").split("\n")
+        pages.append({"title": title, "updated": ts, "lines": lines})
+    return pages
+
+
+def html_unescape(s: str) -> str:
+    import html
+    return html.unescape(s)
+
+
 def main():
     ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     ap.add_argument("json")
@@ -200,8 +222,12 @@ def main():
     ap.add_argument("--dry-run", action="store_true")
     a = ap.parse_args()
 
-    data = json.loads(Path(a.json).read_text(encoding="utf-8"))
-    pages = data.get("pages", data if isinstance(data, list) else [])
+    raw = Path(a.json).read_text(encoding="utf-8")
+    if raw.lstrip().startswith(("{", "[")):
+        data = json.loads(raw)
+        pages = data.get("pages", data if isinstance(data, list) else [])
+    else:
+        pages = parse_smart_context(raw)
     out_dir = Path(a.out)
     if not out_dir.is_absolute():
         out_dir = NOTES / out_dir
